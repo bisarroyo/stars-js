@@ -45,8 +45,13 @@ const skyCreator = ({
     const x = random(100)
     const y = random(100)
     const color = STARSCOLOR[random(STARSCOLOR.length)]
-    stars.push(`${x}vw ${y}vh 0 ${color}, ${x}vw ${y + 100}vh 0 ${color}`)
+    orientation === 'vertical'
+      ? stars.push(`${x}vw ${y}vh 0 ${color}, ${x}vw ${y + 100}vh 0 ${color}`)
+      : stars.push(`${x}vw ${y}vh 0 ${color}, ${x + 100}vw ${y}vh 0 ${color}`)
   }
+  orientation === 'vertical'
+    ? element.style.setProperty('--animation-name', 'moveStarsY')
+    : element.style.setProperty('--animation-name', 'moveStarsX')
   element.style.setProperty('--space-layer', stars.join(','))
   element.style.setProperty('--durationMove', velocityMove)
   element.style.setProperty('--durationBright', velocityBright)
@@ -56,19 +61,22 @@ skyCreator({
   size: '1px',
   starsQuantity: 200,
   element: starsSmall,
-  velocityMove: '50s'
+  velocityMove: '50s',
+  orientation: 'horizontal'
 })
 
 skyCreator({
   size: '2px',
   starsQuantity: 150,
   element: starsMedium,
-  velocityMove: '48s'
+  velocityMove: '45s',
+  orientation: 'horizontal'
 })
 
 skyCreator({
   size: '5px',
   starsQuantity: 100,
   element: starsBig,
-  velocityMove: '45s'
+  velocityMove: '40s',
+  orientation: 'horizontal'
 })

@@ -32,11 +32,19 @@
   left: 0;
   box-shadow: var(--space-layer);
   border-radius: 50%;
-  animation: moveStars var(--durationMove, 20s) linear infinite,
+  animation: var(--animation-name) var(--durationMove, 20s) linear infinite,
     starBright var(--durationBright, 5s) linear infinite;
 }
+@keyframes moveStarsX {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
+}
 
-@keyframes moveStars {
+@keyframes moveStarsY {
   from {
     transform: translateY(0);
   }
