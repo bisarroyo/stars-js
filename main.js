@@ -1,24 +1,74 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// Main container
+const skyContainer = document.querySelector('.sky-container')
 
-setupCounter(document.querySelector('#counter'))
+// Crete new stars elements for each size
+const starsSmall = document.createElement('div')
+const starsMedium = document.createElement('div')
+const starsBig = document.createElement('div')
+
+// add a class for each size
+starsSmall.className = 'stars stars-small'
+starsMedium.className = 'stars stars-Medium'
+starsBig.className = 'stars stars-big'
+
+// Append elements to main container
+skyContainer.appendChild(starsSmall)
+skyContainer.appendChild(starsMedium)
+skyContainer.appendChild(starsBig)
+
+const STARSCOLOR = [
+  'rgba(255, 255, 255, 0.20)',
+  'rgba(255, 255, 255, 0.40)',
+  'rgba(255, 255, 255, 0.60)',
+  'rgba(255, 255, 255, 0.80)',
+  'rgba(255, 255, 255)'
+]
+
+const random = (max) => {
+  const randomNum = Math.floor(Math.random() * max)
+  return randomNum
+}
+
+const skyCreator = ({
+  size = '2px',
+  starsQuantity = 100,
+  element = starsSmall,
+  velocityMove = '20s',
+  velocityBright = '1s',
+  orientation = 'vertical'
+}) => {
+  element.style.setProperty('--size', size)
+  const stars = []
+  for (let i = 0; i < starsQuantity; i++) {
+    const x = random(100)
+    const y = random(100)
+    const color = STARSCOLOR[random(STARSCOLOR.length)]
+    stars.push(`${x}vw ${y}vh 0 ${color}, ${x}vw ${y + 100}vh 0 ${color}`)
+  }
+  element.style.setProperty('--space-layer', stars.join(','))
+  element.style.setProperty('--durationMove', velocityMove)
+  element.style.setProperty('--durationBright', velocityBright)
+}
+
+skyCreator({
+  size: '1px',
+  starsQuantity: 200,
+  element: starsSmall,
+  velocityMove: '50s'
+})
+
+skyCreator({
+  size: '2px',
+  starsQuantity: 150,
+  element: starsMedium,
+  velocityMove: '48s'
+})
+
+skyCreator({
+  size: '5px',
+  starsQuantity: 100,
+  element: starsBig,
+  velocityMove: '45s'
+})
